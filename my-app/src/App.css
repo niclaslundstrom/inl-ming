@@ -23,6 +23,15 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+.join {
+  margin: 4px;
+}
+.comment {
+  margin: 4px;
+}
+.commentbtn {
+  margin: 4px;
+}
 
 .App-link {
   color: #61dafb;

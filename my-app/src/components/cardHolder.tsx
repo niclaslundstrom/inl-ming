@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from 'react-router-dom'
 import { Events } from "../model/Eventsmodel"
 import SearchBar from "../components/searchComponent"
-import {Imessage} from "../model/textmodel"
+
 
 interface Props {
 	events: Events[];
@@ -29,7 +29,7 @@ function CardHolder({ events }: Props ){
             <h2> {event.eventname} </h2>
             <h3> {event.date} </h3>
             <p> {event.description} </p>
-           <Link data-test="eventdetails" to={`/envets/${event.id}`} > vissa mer </Link>
+           <Link data-test="eventdetails" to={`/event/${event.id}`} > Vissa mer </Link>
            </section>
         </div>
 

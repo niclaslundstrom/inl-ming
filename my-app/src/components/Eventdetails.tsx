@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { Events } from "../model/Eventsmodel"
-import EventComment from '../components/eventcomment'
+import EventComment from '../components/EventComment'
 import { Imessage } from '../model/textmodel'
 
 interface Props {
@@ -50,19 +50,19 @@ function Eventdetails({ Events }: Props) {
             <h2> {Event.eventname} </h2>
             <h3> {Event.date} </h3>
             <p> {Event.description} </p>
-        <button data-test="sign-up-btn">
-          Sign up for event
+        <button className='join' data-test="sign-up-btn">
+          Gå med i evnetet
         </button>
       </section>
       <section>
-        Kometar eller fråga:
-        <textarea data-test="comment on event"
+        kommentera eller fråga:
+        <textarea className='comment' data-test="comment-on-event"
           value={Comment}
-          onChange={(event) => setComment(event.target.value)}
-        ></textarea>
-        <button data-test="addCommentBtn" onClick={addnewcomment}>lägg till en komentar</button>
+          onChange={(event) => setComment(event.target.value)}>
+          </textarea>
+        <button className='commentbtn' data-test="addCommentBtn" onClick={addnewcomment}>lägg till en komentar</button>
       </section>
-      <div className="commentsArea" >
+      <div className="commentOutput" >
         {addComment.map((comment: Imessage, key: number) => {
           return <EventComment key={key} comment={comment} />
         })}
