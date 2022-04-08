@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom'
 import CardHolder from './components/cardHolder';
 import { EventsData } from './data/EventsData';
-import Eventdetails from './components/EventDetails';
+import Eventdetails from './components/Eventdetails';
 import './App.css';
 
 function App() {

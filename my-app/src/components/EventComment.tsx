@@ -1,6 +1,8 @@
 import {Imessage} from "../model/textmodel"
+
 interface Props {
     comment: Imessage
+
 }
 
 function EventComment({ comment }: Props){

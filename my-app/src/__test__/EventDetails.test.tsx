@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import { shallow, mount } from 'enzyme';
 import { BrowserRouter } from "react-router-dom";
-import Eventdetails from '../components/EventDetails'
+import Eventdetails from '../components/Eventdetails'
 
 const testData = [{ id: 3, eventname: "Wheelspeed and smoke", date: '2022-07-01', description: "lite mindre intresant" , imageUrl: 'test' }]
 

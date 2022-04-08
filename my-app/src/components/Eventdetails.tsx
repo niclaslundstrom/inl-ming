@@ -2,7 +2,9 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { Events } from "../model/Eventsmodel"
 import EventComment from '../components/EventComment'
+import EventAttending from '../components/Eventattending'
 import { Imessage } from '../model/textmodel'
+import { Iattending } from '../model/attendingmodel'
 
 interface Props {
   Events: Events[];
@@ -40,8 +42,16 @@ function Eventdetails({ Events }: Props) {
     const [addComment, setaddComment] = useState<Imessage[]>([])
 
     const addnewcomment = (): void => {
-        const newcommet = { textmessage : Comment }
-        setaddComment([...addComment, newcommet])
+        const newcomment = { textmessage : Comment }
+        setaddComment([...addComment, newcomment])
+    }
+    const [attending, setattending] = useState("")
+
+    const [addattending, setaddattending] = useState<Iattending[]>([])
+
+    const addnewattending = (): void => {
+        const newattending = { attending : attending }
+        setaddattending([...addattending, newattending])
     }
   return (
     <>
@@ -50,9 +60,19 @@ function Eventdetails({ Events }: Props) {
             <h2> {Event.eventname} </h2>
             <h3> {Event.date} </h3>
             <p> {Event.description} </p>
-        <button className='join' data-test="sign-up-btn">
-          Gå med i evnetet
-        </button>
+            <section>
+            Kommer du närvara till detta evenemang?
+            <textarea className='comment' placeholder='ja, nej eller kanske' data-test="comment-on-event"
+          value={attending}
+          onChange={(event) => setattending(event.target.value)}>
+          </textarea>
+          <button className='commentbtn' data-test="addCommentBtn" onClick={addnewattending}>Anmäl närvaro</button>
+          </section>
+          <div className="commentOutput" >
+        {addattending.map((attend: Iattending, key: number) => {
+          return <EventAttending key={key} attend={attend} />
+        })}
+      </div>
       </section>
       <section>
         kommentera eller fråga:
