@@ -6,6 +6,7 @@ interface Props {
 }
 
 function EventComment({ comment }: Props){
+    localStorage.setItem("comment", JSON.stringify(comment));
     return(
         <>
         <div>{comment.textmessage}</div>
