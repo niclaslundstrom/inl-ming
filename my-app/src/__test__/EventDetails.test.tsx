@@ -25,19 +25,21 @@ describe('Tests for EventComment', () => {
     const wrapper = shallow(<Eventdetails Events={testData}  />)
     expect(wrapper.find('button[data-test="addCommentBtn"]').length).toBe(1)
   })
+  // rednar a button to add a attending
+  test('Renders a button to add a attending', () => {
+    const wrapper = shallow(<Eventdetails Events={testData}  />)
+    expect(wrapper.find('button[data-test="sign-up-btn"]').length).toBe(1)
+  })
+  // test a arry of attending
+  test('Renders a array of attending', () => {
+    const wrapper = shallow(<Eventdetails Events={testData}  />)
+    expect(wrapper.find('EventAttending').length).toBe(1)
+  })
 
-   test('Should add 1 comment when Click on add button', () => {
-    // Should add 1 comment when Click on add button
-    const wrapper = mount(<BrowserRouter><Eventdetails Events={testData}  /></BrowserRouter>)
-    const btn1 = wrapper.find('button[data-test="addCommentBtn"]')
-    const btn2 = wrapper.find('button[data-test="addCommentBtn"]')
-    btn1.simulate('click')
-    btn2.simulate('click')
-    setTimeout(() => {
-      expect(mockAddComment.mock.calls.length).toBe(2)
-      expect(mockAddComment.mock.calls[1][1]).toEqual(testcomment)
-    }, 1000)
-
+  // test a arry of comments
+  test('Renders a array of comments', () => {
+    const wrapper = shallow(<Eventdetails Events={testData}  />)
+    expect(wrapper.find('EventComment').length).toBe(1)
   })
 
   })

@@ -41,17 +41,6 @@ function Eventdetails( props : Props) {
     })
   }, [id, props.Events])
 
-    const [Comment, setComment] = useState<string>('')
-
-
-    const addnewcomment = (): void => {
-        const newcomment = { textmessage : Comment }
-        const id = Event.id
-        const index = props.Events.findIndex(item => item.id === id);
-        props.Events[index].comments.push(newcomment)
-        localStorage.setItem('Events', JSON.stringify(props.Events))
-        setComment('')
-    }
     const [attending, setattending] = useState<string>('')
 
     const addnewattending = (): void => {
@@ -61,6 +50,18 @@ function Eventdetails( props : Props) {
         props.Events[index].attending.push(newattending)
         localStorage.setItem('Events', JSON.stringify(props.Events))
         setattending('')
+    }
+    const [comments, setComment] = useState<string>('')
+
+
+    const addnewcomment = (): void => {
+        const newcomments = { textmessage : comments }
+        const id = Event.id
+        const index = props.Events.findIndex(item => item.id === id);
+        console.log(props.Events[index].comments)
+        props.Events[index].comments.push(newcomments)
+        localStorage.setItem('Events', JSON.stringify(props.Events))
+        setComment('')
     }
   return (
     <>
@@ -87,7 +88,7 @@ function Eventdetails( props : Props) {
       <section>
         kommentera eller fråga:
         <textarea className='comment' data-test="comment-on-event"
-          value={Comment}
+          value={comments}
           onChange={(event) => setComment(event.target.value)}>
           </textarea>
         <button className='commentbtn' data-test="addCommentBtn" onClick={addnewcomment}>lägg till en komentar</button>
