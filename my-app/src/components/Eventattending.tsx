@@ -4,14 +4,9 @@ interface Props {
 }
 
 function EventAttending({ attend }: Props){
-    //store the attend data in localstorage
-    localStorage.setItem("attend", JSON.stringify(attend));
-    // return the attend data
-    
+
     return(
-        <>
         <div>{attend.attending}</div>
-        </>
     )
 }
 

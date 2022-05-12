@@ -1,57 +1,66 @@
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { Events } from "../model/Eventsmodel"
+import { IEvents } from "../model/Eventsmodel"
 import EventComment from '../components/EventComment'
 import EventAttending from '../components/Eventattending'
-import { Imessage } from '../model/textmodel'
 import { Iattending } from '../model/attendingmodel'
+import { Link } from 'react-router-dom'
 
 interface Props {
-  Events: Events[];
+  Events: IEvents[];
 }
 
-function Eventdetails({ Events }: Props) {
+function Eventdetails( props : Props) {
 
   const { id } = useParams()
 
   const [Event, setEvent] = useState({
-    id: 0,
+    id: '',
     imageUrl: '',
     eventname: '',
     date: '',
     description: '',
+    Comments: [{textmessage: ''}],
+    attending: [{attending: ''}]
   })
 
   useEffect(() => {
-   Events.map((Event) => {
-      if ( Event.id.toString() === id) {
-        const meeting = {
+   props.Events.map((Event) => {
+      if ( Event.id === id) {
+        const Thisevent = {
           id:  Event.id,
           imageUrl: Event.imageUrl ,
           eventname:  Event.eventname,
           description:  Event.description,
-          date: Event.date
+          date: Event.date,
+          Comments: Event.comments,
+          attending: Event.attending
         }
-        return setEvent(meeting)
+        return setEvent(Thisevent)
       }
     })
-  }, [id])
+  }, [id, props.Events])
 
-    const [Comment, setComment] = useState("")
+    const [Comment, setComment] = useState<string>('')
 
-    const [addComment, setaddComment] = useState<Imessage[]>([])
 
     const addnewcomment = (): void => {
         const newcomment = { textmessage : Comment }
-        setaddComment([...addComment, newcomment])
+        const id = Event.id
+        const index = props.Events.findIndex(item => item.id === id);
+        props.Events[index].comments.push(newcomment)
+        localStorage.setItem('Events', JSON.stringify(props.Events))
+        setComment('')
     }
-    const [attending, setattending] = useState("")
-
-    const [addattending, setaddattending] = useState<Iattending[]>([])
+    const [attending, setattending] = useState<string>('')
 
     const addnewattending = (): void => {
-        const newattending = { attending : attending }
-        setaddattending([...addattending, newattending])
+        const newattending = {  attending : attending  }
+        const id = Event.id
+        const index = props.Events.findIndex(item => item.id === id);
+        props.Events[index].attending.push(newattending)
+        localStorage.setItem('Events', JSON.stringify(props.Events))
+        setattending('')
     }
   return (
     <>
@@ -66,13 +75,14 @@ function Eventdetails({ Events }: Props) {
           value={attending}
           onChange={(event) => setattending(event.target.value)}>
           </textarea>
-          <button className='commentbtn' data-test="addCommentBtn" onClick={addnewattending}>Anmäl närvaro</button>
-          </section>
-          <div className="commentOutput" >
-        {addattending.map((attend: Iattending, key: number) => {
-          return <EventAttending key={key} attend={attend} />
+          <button className='commentbtn' data-test="sign-up-btn" onClick={addnewattending}>Anmäl närvaro</button>
+          {Event.attending.map((attend: Iattending) => {
+          return <EventAttending  attend={attend} />
         })}
-      </div>
+          </section>
+
+        
+
       </section>
       <section>
         kommentera eller fråga:
@@ -81,13 +91,17 @@ function Eventdetails({ Events }: Props) {
           onChange={(event) => setComment(event.target.value)}>
           </textarea>
         <button className='commentbtn' data-test="addCommentBtn" onClick={addnewcomment}>lägg till en komentar</button>
-      </section>
-      <div className="commentOutput" >
-        {addComment.map((comment: Imessage, key: number) => {
-          return <EventComment key={key} comment={comment} />
+        { Event.Comments.map((comment) => {
+          return <EventComment comment={comment} />
         })}
-      </div>
+      </section>
 
+        
+
+        <Link  to={`/`}> Tillbaka </Link>
+
+      
+      
     </>
   )
 }

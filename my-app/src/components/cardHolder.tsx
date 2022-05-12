@@ -1,18 +1,19 @@
 import { useState } from "react";
 import { Link } from 'react-router-dom'
-import { Events } from "../model/Eventsmodel"
+import { IEvents } from "../model/Eventsmodel"
 import SearchBar from "../components/searchComponent"
 
 
+
 interface Props {
-	events: Events[];
+	events: IEvents[];
 }
 
 
 
-function CardHolder({ events }: Props ){    
+function CardHolder(props : Props ){    
    const [ text , setText ] = useState("")
-   const filterEvents = events.filter((events) => events.eventname.match(new RegExp(text, "i")))
+   const filterEvents = props.events.filter((event) => event.eventname.match(new RegExp(text, "i")))
     const evnetsorted = filterEvents.sort((a,b) => (a.date).localeCompare(b.date))
 
    
@@ -29,10 +30,10 @@ function CardHolder({ events }: Props ){
             <h2> {event.eventname} </h2>
             <h3> {event.date} </h3>
             <p> {event.description} </p>
-           <Link data-test="eventdetails" to={`/event/${event.id}`} > Vissa mer </Link>
-           </section>
+            <Link data-test="eventdetails" to={`/event/${event.id}`} > Vissa mer </Link>
+            </section>
+            <hr />
         </div>
-
        ))}
     </> 
     )

@@ -17,7 +17,6 @@ function App() {
       <section className="main-content">
           <Routes>
             <Route path="/" element={ <CardHolder events={EventsData} />}></Route>
-
             <Route path="/event/:id" element={<Eventdetails Events={EventsData} />}></Route>
           </Routes>
         </section>

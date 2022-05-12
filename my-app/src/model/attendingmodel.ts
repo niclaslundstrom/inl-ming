@@ -1,3 +1,3 @@
 export interface Iattending {
-    attending : string
+     attending: string
 }

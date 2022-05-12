@@ -36,6 +36,12 @@
 .App-link {
   color: #61dafb;
 }
+hr {
+  border-top: 3px solid black;
+}
+.card {
+  margin: 10px;
+}
 
 @keyframes App-logo-spin {
   from {
